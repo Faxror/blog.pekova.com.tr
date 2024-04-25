@@ -2,6 +2,7 @@
 using DataAcceessLayer.Abstrack;
 using DataAcceessLayer.Concrete;
 using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,14 @@ namespace BusinessLayer.Concrete
             this.blogRepository = blogRepository;
         }
 
+        public Blog AddBlog(Blog blog)
+        {
+           return blogRepository.AddBlog(blog);
+        }
+
         public Blog GetBlogByİD(int id)
         {
-            throw new NotImplementedException();
+            return blogRepository.GetBlogByİD(id);
         }
 
         public Blog GetBlogsWhit(int id)
@@ -40,12 +46,21 @@ namespace BusinessLayer.Concrete
             return blogRepository.List();
         }
 
-     
 
+
+        public void Delete(int id)
+        {
+            blogRepository.Delete(id);
+        }
         List<BlogRepository.BlogWithAuthors> IBlogService.GetBlogWithAuthors(int? pageNumber)
         {
             var b = blogRepository.GetBlogWithAuthors(pageNumber);
             return b;
+        }
+
+        public Blog Update(Blog blog)
+        {
+            return blogRepository.Update(blog);
         }
     }
 }

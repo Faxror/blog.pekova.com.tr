@@ -1,0 +1,31 @@
+﻿@using EntityLayer.Concrete
+@{
+    ViewData["Title"] = "AdminBlogList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Blog Listesi</h2>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Başlık</th>
+        <th>Kategori</th>
+        <th>Yazar</th>
+        <th>Tarih</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.BlogID</td>
+            <td>@Html.Raw(item.BlogTıtle)</td>
+            <td>@item.Category.CategoryName</td>
+            <td>@item.Author.AuthorName</td>
+            <td>@item.BlogTime.ToShortDateString()</td>
+            <td><a href="/Blog/UpdateBlog/@item.BlogID" class="btn btn-outline-success">Düzenle</a> <a href="/Blog/DeleteBlog/@item.BlogID" class="btn btn-outline-danger">Sil</a></td>
+        </tr>
+    }
+</table>
+<a href="/Blog/AddBlog/" class="btn btn-outline-info">Yeni Blog Yazısı Ekle</a>
+

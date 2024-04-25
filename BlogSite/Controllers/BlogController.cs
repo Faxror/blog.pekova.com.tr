@@ -1,9 +1,13 @@
 ﻿using BlogSite.Models;
 using BusinessLayer.Abstrack;
+using BusinessLayer.Concrete;
+using DataAcceessLayer.Abstrack;
 using DataAcceessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using static DataAcceessLayer.Concrete.BlogRepository;
 
 namespace BlogSite.Controllers
@@ -146,6 +150,78 @@ namespace BlogSite.Controllers
             ViewBag.FeuturedPost = "a";
             return PartialView();
         }
-     
+
+       public IActionResult AdminBlogList()
+        {
+            var blogadmin = blogService.GetListWithAuthor();
+            return View(blogadmin);
+        }
+
+       [HttpGet]
+       public IActionResult AddBlog()
+        {
+            CategoryManager categoryManager = new CategoryManager(new CategoryRepository(_context));
+            List<SelectListItem> values = (from x in categoryManager.GetList() select new SelectListItem 
+            { 
+             Text = x.CategoryName,
+             Value = x.CategoryID.ToString()
+            }).ToList();
+
+            AuthorManager AuthorManager = new AuthorManager(new AuthorRepository(_context));
+            List<SelectListItem> valuess = (from x in AuthorManager.GetList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.AuthorName,
+                                               Value = x.AuthorID.ToString()
+                                           }).ToList();
+            ViewBag.s = values;
+            ViewBag.a = valuess;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddBlog(Blog p)
+        {
+
+            blogService.AddBlog(p);
+            return RedirectToAction("AdminBlogList");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateBlog(int id)
+        {
+            CategoryManager categoryManager = new CategoryManager(new CategoryRepository(_context));
+            List<SelectListItem> values = (from x in categoryManager.GetList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.CategoryName,
+                                               Value = x.CategoryID.ToString()
+                                           }).ToList();
+
+            AuthorManager AuthorManager = new AuthorManager(new AuthorRepository(_context));
+            List<SelectListItem> valuess = (from x in AuthorManager.GetList()
+                                            select new SelectListItem
+                                            {
+                                                Text = x.AuthorName,
+                                                Value = x.AuthorID.ToString()
+                                            }).ToList();
+            ViewBag.s2 = values;
+            ViewBag.a2 = valuess;
+            var value = blogService.GetBlogByİD(id);
+            return View(value);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBlog(Blog p)
+        {
+
+            blogService.Update(p);
+            return RedirectToAction("AdminBlogList");
+        }
+        public IActionResult DeleteBlog(int id)
+        {
+            blogService.Delete(id);
+            return RedirectToAction("AdminBlogList");
+        }
     }
 }

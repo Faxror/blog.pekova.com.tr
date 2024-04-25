@@ -12,6 +12,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IBlogService, BlogManager>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IAuthorService, AuthorManager>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddDbContext<Context>();
 var app = builder.Build();
 
@@ -29,6 +33,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

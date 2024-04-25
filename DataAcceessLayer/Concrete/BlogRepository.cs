@@ -103,5 +103,29 @@ namespace DataAcceessLayer.Concrete
         {
            return _context.Blogs.ToList();
         }
+
+        public Blog AddBlog(Blog blog)
+        {
+           _context.Blogs.Add(blog);
+           _context.SaveChanges();
+            return blog;
+            
+        }
+
+        public void Delete(int id)
+        {
+         
+                var deleteblog = GetBlogByİD(id);
+                _context.Blogs.Remove(deleteblog);
+                _context.SaveChanges();
+            
+        }
+
+        public Blog Update(Blog blog)
+        {
+            _context.Blogs.Update(blog);
+            _context.SaveChanges();
+            return blog;
+        }
     }
 }

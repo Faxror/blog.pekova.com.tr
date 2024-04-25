@@ -18,6 +18,10 @@ namespace DataAcceessLayer.Abstrack
 
         List<Blog> GetListWithAuthor();
 
+        Blog AddBlog(Blog blog);
+
+        void Delete(int id);
+        Blog Update(Blog blog);
         List<BlogWithAuthors> GetBlogWithAuthors(int? pageNumber);
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+
 
 namespace EntityLayer.Concrete
 {
@@ -13,6 +15,7 @@ namespace EntityLayer.Concrete
 
         public string BlogImage { get; set; }
         public DateTime BlogTime { get; set; }
+
 
         public string BlogContent { get; set; }
         public int CategoryID { get; set; }

@@ -16,8 +16,13 @@ namespace BusinessLayer.Abstrack
         Blog GetBlogByİD(int id);
 
         Blog GetBlogsWhit(int id);
+        Blog AddBlog(Blog blog);
 
+
+        void Delete(int id);
         List<Blog> GetListWithAuthor();
+
+        Blog Update(Blog blog);
 
         List<BlogWithAuthors> GetBlogWithAuthors(int? pageNumber);
     }
