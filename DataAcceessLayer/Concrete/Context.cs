@@ -1,0 +1,23 @@
+﻿using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAcceessLayer.Concrete
+{
+    public class Context:DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer("Data Source=FAXROR;Initial Catalog=Blog2;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        }
+
+        public DbSet<Blog> Blogs { set; get; }
+        public DbSet<Author> Authors { set; get; }
+        public DbSet<Category> Categories { set; get; }
+    }
+}
