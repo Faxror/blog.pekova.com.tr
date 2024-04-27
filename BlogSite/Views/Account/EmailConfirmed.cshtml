@@ -34,6 +34,16 @@
                 <p class="login-box-msg"> E postanıza gelen 6 hanelik kodu giriniz.</p>
 
                 <form action="#" method="post">
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" asp-for="Mail" value="@ViewBag.v" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Kod" asp-for="ConfirmCode">
                         <div class="input-group-append">
@@ -42,14 +52,7 @@
                             </div>
                         </div>
                     </div>
-                        <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="Mail" value="@ViewBag.v" />
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
+                        
                     <div class="row">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">E posta onayla</button>
@@ -63,6 +66,14 @@
             <!-- /.login-card-body -->
         </div>
     </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </div>
+    }
+
     <!-- /.login-box -->
     <!-- jQuery -->
     <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
