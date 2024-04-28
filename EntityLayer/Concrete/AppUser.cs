@@ -11,6 +11,10 @@ namespace EntityLayer.Concrete
     {
         public string NameAndSunName { get; set; }
         public string Phone { get; set; }
+        public string Image { get; set; }
+        public string About { get; set; }
+        public string ShortAbout { get; set; }
+
         public int ConfirimCode { get; set; }
 
 

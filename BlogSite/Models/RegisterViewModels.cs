@@ -8,5 +8,9 @@
         public string Password { get; set;}
         public string ConfirmPassword { get; set;}
         public string Phone { get; set;}
+        public string About { get; set; }
+        public string ShortAbout { get; set; }
+        public string Image { get; set;}
+
     }
 }

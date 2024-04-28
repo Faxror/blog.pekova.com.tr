@@ -59,6 +59,38 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Telefon Numarası" asp-for="Phone">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Kendinizi Tanıtınız" asp-for="About">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Kısaca Yeteneklerinizi Giriniz" asp-for="ShortAbout">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Görsel Yolu" asp-for="Image">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Şifre" asp-for="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -74,14 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Telefon Numarası" asp-for="Phone">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="row">
                         <div class="col-8">

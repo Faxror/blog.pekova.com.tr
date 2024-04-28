@@ -39,7 +39,7 @@ namespace BlogSite.Controllers
                 var user = await _userManager.FindByNameAsync(loginViewModel.Username);
                 if (user.EmailConfirmed == true)
                 {
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("MyProfiles", "User");
                 }
                 else if (user.EmailConfirmed == false)
                 {
@@ -69,6 +69,9 @@ namespace BlogSite.Controllers
                     NameAndSunName = registerViewModels.NameandSurname,
                     Email = registerViewModels.Email,
                     Phone = registerViewModels.Phone,
+                    About = registerViewModels.About,
+                    ShortAbout = registerViewModels.ShortAbout,
+                    Image = registerViewModels.Image,
                     ConfirimCode = code,
                 };
                 var result = await _userManager.CreateAsync(appUser, registerViewModels.Password);
