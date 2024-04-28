@@ -1,0 +1,30 @@
+﻿@model List<EntityLayer.Concrete.Blog>
+@{
+    ViewData["Title"] = "MyBlogs";
+    Layout = "~/Views/Shared/_AuthorLayout.cshtml";
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Blog Adı</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BlogID</td>
+                <td>@item.BlogTıtle</td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <p>Kullanıcının hiç blogu bulunmamaktadır.</p>
+}
+
+

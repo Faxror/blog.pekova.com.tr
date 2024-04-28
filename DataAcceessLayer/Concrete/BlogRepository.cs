@@ -85,7 +85,7 @@ namespace DataAcceessLayer.Concrete
             return blogs;
         }
 
-
+        
         public class BlogWithAuthors
         {
 
@@ -126,6 +126,11 @@ namespace DataAcceessLayer.Concrete
             _context.Blogs.Update(blog);
             _context.SaveChanges();
             return blog;
+        }
+
+        public List<Blog> GetListWithCategoryByWriter(int id)
+        {
+            return _context.Blogs.Include(b => b.Category).Where(c => c.AuthorID == id).ToList();
         }
     }
 }

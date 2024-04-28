@@ -2,6 +2,7 @@
 using DataAcceessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -14,15 +15,18 @@ using System.Security.Claims;
 
 namespace BlogSite.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly Context context;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, Context context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.context = context;
         }
 
         [HttpGet]
@@ -63,6 +67,19 @@ namespace BlogSite.Controllers
                 Random random = new Random();
                 int code;
                 code = random.Next(1000, 100000);
+
+                Author author = new Author() 
+                { 
+                 AuthorName = registerViewModels.NameandSurname,
+                 AuthorImage = registerViewModels.Image,
+                 Mail = registerViewModels.Email,
+                 Phone = registerViewModels.Phone,
+                 ShortAbout = registerViewModels.ShortAbout,
+                 AuthorAbout = registerViewModels.About,
+                
+                };
+                context.Authors.Add(author);
+                context.SaveChanges();
                 AppUser appUser = new AppUser()
                 {
                     UserName = registerViewModels.Username,
@@ -72,8 +89,11 @@ namespace BlogSite.Controllers
                     About = registerViewModels.About,
                     ShortAbout = registerViewModels.ShortAbout,
                     Image = registerViewModels.Image,
+                    AuthorID = author.AuthorID,
+                    CategoryID = 1,
                     ConfirimCode = code,
                 };
+          
                 var result = await _userManager.CreateAsync(appUser, registerViewModels.Password);
                 if (result.Succeeded)
                 {
@@ -90,7 +110,7 @@ namespace BlogSite.Controllers
 
                     await smtpClient.SendMailAsync(mail);
                     TempData["Mail"] = registerViewModels.Email;
-              
+                  
                     return RedirectToAction("EmailConfirmed", "Account");
                 }
                else
@@ -133,6 +153,12 @@ namespace BlogSite.Controllers
                 return View(confirmViewModel);
             }
             return View();
+        }
+
+        public async Task<IActionResult> logOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
 
     }

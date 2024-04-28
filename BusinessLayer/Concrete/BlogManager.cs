@@ -2,6 +2,7 @@
 using DataAcceessLayer.Abstrack;
 using DataAcceessLayer.Concrete;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace BusinessLayer.Concrete
     public class BlogManager : IBlogService
     {
         private readonly IBlogRepository blogRepository;
+        private readonly Context context;
 
-        public BlogManager(IBlogRepository blogRepository)
+        public BlogManager(IBlogRepository blogRepository, Context context)
         {
             this.blogRepository = blogRepository;
+            this.context = context;
         }
 
         public Blog AddBlog(Blog blog)
@@ -61,6 +64,15 @@ namespace BusinessLayer.Concrete
         public Blog Update(Blog blog)
         {
             return blogRepository.Update(blog);
+        }
+        public List<Blog> GetListWithWriter(int authorId)
+        {
+            return context.Blogs.Where(b => b.AuthorID == authorId).ToList();
+        }
+
+        public List<Blog> GetListWithCategoryByWriter(int id)
+        {
+            return blogRepository.GetListWithCategoryByWriter(id);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model BlogSite.Models.UserChangeAndViewModel
+﻿
 @{
 
     Layout = null;
@@ -73,15 +73,11 @@
                 <!-- Sidebar user (optional) -->
 
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-
-                    <div class="image">
-
-                        <img src="@Model.Image" class="img-circle elevation-2" alt="User Image">
-
-                    </div>
+                  
+                  
 
                     <div class="info">
-                        <a href="#" class="d-block">@Model.NameAndSunName</a>
+                        <a href="#" class="d-block">@User.Identity.Name</a>
                     </div>
 
 
@@ -101,7 +97,7 @@
 
                         <li class="nav-item">
 
-                            <a href="../widgets.html" class="nav-link">
+                            <a href="/User/MyBlogs" class="nav-link">
 
                                 <i class="nav-icon fas fa-th"></i>
 
@@ -160,7 +156,7 @@
 
                         <li class="nav-item">
 
-                            <a href="../widgets.html" class="nav-link">
+                            <a href="/Account/logOut" class="nav-link">
 
 
                                 <i class="nav-icon fas fa-outdent"></i>

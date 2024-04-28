@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSite", "BlogSite\BlogSite.csproj", "{A33E97B2-115C-4D35-AF4F-6762BB55E92A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogSite", "BlogSite\BlogSite.csproj", "{A33E97B2-115C-4D35-AF4F-6762BB55E92A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{27A2BCB9-50B9-407F-A39B-4D6FF1DBCCA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{27A2BCB9-50B9-407F-A39B-4D6FF1DBCCA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcceessLayer", "DataAcceessLayer\DataAcceessLayer.csproj", "{E232D117-E5B7-44AD-B475-F49A50A9DE32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAcceessLayer", "DataAcceessLayer\DataAcceessLayer.csproj", "{E232D117-E5B7-44AD-B475-F49A50A9DE32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{6045FEED-1DC7-495E-AFC8-F928D1A22CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{6045FEED-1DC7-495E-AFC8-F928D1A22CA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

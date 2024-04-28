@@ -12,6 +12,7 @@ namespace BusinessLayer.Abstrack
     public interface IBlogService
     {
         List<Blog> List();
+        List<Blog> GetListWithCategoryByWriter(int id);
 
         Blog GetBlogByİD(int id);
 
@@ -21,7 +22,7 @@ namespace BusinessLayer.Abstrack
 
         void Delete(int id);
         List<Blog> GetListWithAuthor();
-
+        List<Blog> GetListWithWriter(int authorId);
         Blog Update(Blog blog);
 
         List<BlogWithAuthors> GetBlogWithAuthors(int? pageNumber);

@@ -11,6 +11,7 @@ namespace DataAcceessLayer.Abstrack
     public interface IBlogRepository
     {
         List<Blog> List();
+        //Blog GetListAll(int id);
 
         Blog GetBlogByİD(int  id);
 
@@ -18,6 +19,7 @@ namespace DataAcceessLayer.Abstrack
 
         List<Blog> GetListWithAuthor();
 
+        List<Blog> GetListWithCategoryByWriter(int id);
         Blog AddBlog(Blog blog);
 
         void Delete(int id);

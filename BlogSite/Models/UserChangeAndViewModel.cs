@@ -1,4 +1,6 @@
-﻿namespace BlogSite.Models
+﻿using EntityLayer.Concrete;
+
+namespace BlogSite.Models
 {
     public class UserChangeAndViewModel
     {
@@ -11,5 +13,6 @@
         public string ConfirmPassword { get; set; }
         public string ShortAbout { get; set; }
 
+        public List<Blog> Blogs { get; set; }
     }
 }

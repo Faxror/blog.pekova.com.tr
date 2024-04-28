@@ -223,5 +223,6 @@ namespace BlogSite.Controllers
             blogService.Delete(id);
             return RedirectToAction("AdminBlogList");
         }
+
     }
 }

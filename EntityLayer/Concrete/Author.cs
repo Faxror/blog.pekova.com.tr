@@ -13,7 +13,7 @@ namespace EntityLayer.Concrete
         public string AuthorImage { get; set; }
 
         public string Mail { get; set; }
-        public string Password { get; set; }
+       
 
         public string AuthorAbout { get; set; }
 
@@ -21,5 +21,6 @@ namespace EntityLayer.Concrete
         public string ShortAbout {  get; set; }
 
         public ICollection<Blog> Blogs { get; set; }
+        public ICollection<AppUser> AppUsers { get; set; }
     }
 }
