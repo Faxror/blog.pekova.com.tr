@@ -18,14 +18,34 @@ namespace BusinessLayer.Concrete
             _categoryRepository = categoryRepository;
         }
 
+        public Category EditCategory(Category category)
+        {
+            return _categoryRepository.EditCategory(category);
+        }
+
         public Category CategoryGetName(string categorynames)
         {
             return _categoryRepository.CategoryGetName(categorynames);
         }
 
+        public void DeleteCategory(int id)
+        {
+             _categoryRepository.DeleteCategory(id);
+        }
+
         public List<Category> GetList()
         {
-            return _categoryRepository.GetList();
+          return _categoryRepository.GetList();
+        }
+
+        public Category GetListByID(int id)
+        {
+           return _categoryRepository.GetListByID(id);
+        }
+
+        public Category AddCategory(Category category)
+        {
+            return _categoryRepository.AddCategory(category);
         }
     }
 }

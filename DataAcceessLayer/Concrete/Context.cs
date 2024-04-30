@@ -13,12 +13,13 @@ namespace DataAcceessLayer.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=PC-5;Initial Catalog=Blog;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Data Source=FAXROR;Initial Catalog=Blog2;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
 
         public DbSet<Blog> Blogs { set; get; }
         public DbSet<Author> Authors { set; get; }
         public DbSet<Category> Categories { set; get; }
         public DbSet<Comment> Comments { set; get; }
+        public DbSet<Contact> Contacts { set; get; }
     }
 }

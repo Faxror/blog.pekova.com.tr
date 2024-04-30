@@ -15,6 +15,9 @@ namespace DataAcceessLayer.Abstrack
         Comment UpdateComment(Comment comment);
 
         Comment AddComment(Comment comment);
-        
+
+        Contact GetContact(int id);
+        Contact GetContactByİD(int id);
+        void DeleteContact(int id);
     }
 }

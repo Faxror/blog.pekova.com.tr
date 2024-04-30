@@ -1,0 +1,17 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form class="forms-sample" method="post">
+    <div class="form-group">
+        <label for="exampleInputName1">Category Adı</label>
+        <input type="text" class="form-control" id="exampleInputName1" placeholder="Lütfen Category Adı Giriniz" asp-for="CategoryName">
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Kaydet</button>
+    <button class="btn btn-light" href="/Admin/CategoryList">Geri Dön</button>
+</form>
+
+

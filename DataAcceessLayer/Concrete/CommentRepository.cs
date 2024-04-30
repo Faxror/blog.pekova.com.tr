@@ -24,6 +24,23 @@ namespace DataAcceessLayer.Concrete
             return comment;
         }
 
+        public void DeleteContact(int id)
+        {
+            var deletecontact = GetContactByİD(id);
+            _context.Contacts.Remove(deletecontact);
+            _context.SaveChanges();
+        }
+
+        public Contact GetContact(int id)
+        {
+            return _context.Contacts.FirstOrDefault(x => x.ContactID == id);
+        }
+
+        public Contact GetContactByİD(int id)
+        {
+            return _context.Contacts.Find(id);
+        }
+
         public List<Comment> GetList()
         {
            return _context.Comments.ToList();

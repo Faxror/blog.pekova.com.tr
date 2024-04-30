@@ -1,0 +1,48 @@
+﻿@using EntityLayer.Concrete
+@model List<AppRole>
+@{
+    ViewData["Title"] = "RolList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-md-6">
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Roller</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-striped">
+       
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Rol Adı</th>
+                    <th>Düzenle</th>
+                    <th>Sil</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td><a href="/Admin/UpdateRol/@item.Id" class="btn btn-outline-success">Düzenle</a> </td>
+                    <td><a href="/Admin/DeleteRol/@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                    
+                   
+                </tr>
+                }
+            </tbody>
+           
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+    <a href="/Admin/AddRol" class="btn btn-outline-primary">Yeni Rol Ekle</a>
+    <a class="btn btn-outline-primary" href="/Admin/UserRolList">Kullanıcı Rol Listesi</a>
+          </div>
+
+

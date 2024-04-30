@@ -10,7 +10,12 @@ namespace DataAcceessLayer.Abstrack
     public interface ICategoryRepository 
     {
         List<Category> GetList();
+        Category GetListByID(int id);
 
         Category CategoryGetName(string categorynames);
+
+        Category EditCategory(Category category);
+        Category AddCategory(Category category);
+        void DeleteCategory(int id);
     }
 }

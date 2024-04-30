@@ -12,5 +12,11 @@ namespace BusinessLayer.Abstrack
         List<Category> GetList();
 
         Category CategoryGetName(string categorynames);
+
+        Category GetListByID(int id);
+
+        Category EditCategory(Category category);
+        Category AddCategory(Category category);
+        void DeleteCategory(int id);
     }
 }
