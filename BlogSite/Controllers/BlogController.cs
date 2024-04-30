@@ -18,12 +18,14 @@ namespace BlogSite.Controllers
         private readonly IBlogService blogService;
         private readonly Context _context;
         private readonly ICommentService _commentService;
+        private readonly ICategoryService categoryService;
 
-        public BlogController(IBlogService blogService, Context context, ICommentService commentService)
+        public BlogController(IBlogService blogService, Context context, ICommentService commentService, ICategoryService categoryService)
         {
             this.blogService = blogService;
             _context = context;
             _commentService = commentService;
+            this.categoryService = categoryService;
         }
 
         [AllowAnonymous]
@@ -242,7 +244,8 @@ namespace BlogSite.Controllers
         {
             var blog = blogService.GetBlogByCategory(id);
 
-            var categoryname = _context.Categories.FirstOrDefault(c => c.CategoryName == categorynames);
+            var categoryname = categoryService.CategoryGetName(categorynames);
+
             ViewBag.categoryname = categoryname;
             return View(blog);
         }

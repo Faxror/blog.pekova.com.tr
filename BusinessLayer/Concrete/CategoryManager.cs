@@ -18,6 +18,11 @@ namespace BusinessLayer.Concrete
             _categoryRepository = categoryRepository;
         }
 
+        public Category CategoryGetName(string categorynames)
+        {
+            return _categoryRepository.CategoryGetName(categorynames);
+        }
+
         public List<Category> GetList()
         {
             return _categoryRepository.GetList();

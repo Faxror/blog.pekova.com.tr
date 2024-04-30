@@ -17,6 +17,11 @@ namespace DataAcceessLayer.Concrete
             _context = context;
         }
 
+        public Category CategoryGetName(string categorynames)
+        {
+            return _context.Categories.FirstOrDefault(c => c.CategoryName == categorynames);
+        }
+
         public List<Category> GetList()
         {
             return _context.Categories.ToList();

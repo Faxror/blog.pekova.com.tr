@@ -10,5 +10,7 @@ namespace DataAcceessLayer.Abstrack
     public interface ICategoryRepository 
     {
         List<Category> GetList();
+
+        Category CategoryGetName(string categorynames);
     }
 }
