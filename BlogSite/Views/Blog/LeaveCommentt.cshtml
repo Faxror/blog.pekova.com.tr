@@ -1,0 +1,46 @@
+﻿@model EntityLayer.Concrete.Comment
+
+
+<form class="forms-sample" id="commentForm" method="post">
+    <div class="form-group">
+        <label for="Username">Kullanıcı Adınız *</label>
+        <input type="text" class="form-control" asp-for="Username">
+    </div>
+    <div class="form-group">
+        <label for="Mail">Email *</label>
+        <input type="email" class="form-control" asp-for="Mail">
+    </div>
+    <div class="form-group">
+        <label for="Image">Profil Fotoğrafınız *</label>
+        <input type="text" class="form-control" asp-for="Image">
+    </div>
+    <input type="hidden" name="CommentDate" value="@DateTime.Now.ToShortDateString()" />
+    <input type="hidden" name="BlogID" value="@ViewBag.id" />
+    <div class="form-group">
+        <label for="CommentText">Yorumunuz</label>
+        <textarea asp-for="CommentText" cols="30" rows="10" class="form-control"></textarea>
+    </div>
+
+    <button type="button" id="submitComment" class="btn btn-outline-primary">Yap Yorum</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+   
+        $('#submitComment').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Blog/LeaveCommentt', // Doğru URL'yi kontrol et
+                data: $('#commentForm').serialize(),
+                success: function (response) {
+                    console.log('Yorum başarıyla eklendi.');
+                    window.location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Yorum eklenirken bir hata oluştu: ' + error);
+                }
+            });
+        });
+    });
+</script>

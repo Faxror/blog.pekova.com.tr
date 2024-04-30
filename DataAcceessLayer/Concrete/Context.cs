@@ -19,5 +19,6 @@ namespace DataAcceessLayer.Concrete
         public DbSet<Blog> Blogs { set; get; }
         public DbSet<Author> Authors { set; get; }
         public DbSet<Category> Categories { set; get; }
+        public DbSet<Comment> Comments { set; get; }
     }
 }

@@ -73,12 +73,10 @@
                 <!-- Sidebar user (optional) -->
 
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                  
-                  
 
-                    <div class="info">
-                        <a href="#" class="d-block">@User.Identity.Name</a>
-                    </div>
+
+                    @await Component.InvokeAsync("_UserPartial")
+
 
 
                 </div>
@@ -114,25 +112,6 @@
                         </li>
 
                   
-
-
-                        <li class="nav-item">
-
-                            <a href="../widgets.html" class="nav-link">
-
-                                <i class="nav-icon fas fa-comment"></i>
-
-                                <p>
-
-                                    Yorumlar
-
-
-
-                                </p>
-
-                            </a>
-
-                        </li>
 
                         <li class="nav-item">
 

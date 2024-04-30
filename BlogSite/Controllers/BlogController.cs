@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using static DataAcceessLayer.Concrete.BlogRepository;
 
 namespace BlogSite.Controllers
@@ -16,11 +17,13 @@ namespace BlogSite.Controllers
     {
         private readonly IBlogService blogService;
         private readonly Context _context;
+        private readonly ICommentService _commentService;
 
-        public BlogController(IBlogService blogService, Context context)
+        public BlogController(IBlogService blogService, Context context, ICommentService commentService)
         {
             this.blogService = blogService;
             _context = context;
+            _commentService = commentService;
         }
 
         [AllowAnonymous]
@@ -139,7 +142,7 @@ namespace BlogSite.Controllers
 
         public IActionResult BlogDetails(int id)
         {
-
+            ViewBag.id = id;
             var blogWithAuthor = blogService.GetBlogsWhit(id);
             return View("BlogDetails", blogWithAuthor);
 
@@ -151,12 +154,7 @@ namespace BlogSite.Controllers
             return PartialView();
         }
 
-       public IActionResult AdminBlogList()
-        {
-            var blogadmin = blogService.GetListWithAuthor();
-            return View(blogadmin);
-        }
-
+ 
        [HttpGet]
        public IActionResult AddBlog()
         {
@@ -222,6 +220,31 @@ namespace BlogSite.Controllers
         {
             blogService.Delete(id);
             return RedirectToAction("AdminBlogList");
+        }
+
+
+        [HttpGet]
+        public PartialViewResult LeaveCommentt()
+        {
+            
+            return PartialView();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>  LeaveCommentt(Comment c)
+        {
+
+            _commentService.AddComment(c);
+            return Ok();
+        }
+
+        public IActionResult GetBlogCategory(int id, string categorynames)
+        {
+            var blog = blogService.GetBlogByCategory(id);
+
+            var categoryname = _context.Categories.FirstOrDefault(c => c.CategoryName == categorynames);
+            ViewBag.categoryname = categoryname;
+            return View(blog);
         }
 
     }

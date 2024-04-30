@@ -152,5 +152,20 @@ namespace BlogSite.Controllers
             return RedirectToAction("MyBlogs");
         }
 
+        public async Task<PartialViewResult> ProfilAsync()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserChangeAndViewModel userChangeAndViewModel2 = new UserChangeAndViewModel
+            {
+                Phone = values.Phone,
+                Username = values.UserName,
+                Image = values.Image,
+                NameAndSunName = values.NameAndSunName,
+                ShortAbout = values.ShortAbout,
+                Email = values.Email,
+            };
+            return PartialView(userChangeAndViewModel2);
+        }
+
     }
 }

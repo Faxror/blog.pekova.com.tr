@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataAcceessLayer.Concrete.BlogRepository;
 
 namespace BusinessLayer.Concrete
 {
@@ -73,6 +75,44 @@ namespace BusinessLayer.Concrete
         public List<Blog> GetListWithCategoryByWriter(int id)
         {
             return blogRepository.GetListWithCategoryByWriter(id);
+        }
+
+        public List<Blog> GetBlogByAuthors(int id)
+        {
+           return blogRepository.GetBlogByAuthors(id);
+        }
+
+        public List<BlogWithAuthors2> GetBlogByCategory(int id)
+        {
+            var blogs = context.Blogs
+                .Where(b => b.CategoryID == id) // Kategori ID'sine göre filtrele
+                .OrderBy(b => b.BlogID)
+                .Join(context.Authors.AsNoTracking(),
+                      blog => blog.AuthorID,
+                      author => author.AuthorID,
+                      (blog, author) => new { Blog = blog, Author = author })
+                .Join(context.Categories.AsNoTracking(),
+                      temp => temp.Blog.CategoryID,
+                      category => category.CategoryID,
+                      (temp, category) => new BlogWithAuthors2
+                      {
+                          Blog = temp.Blog,
+                          Author = temp.Author,
+                          Category = category
+                      })
+                .ToList();
+
+            return blogs;
+        }
+
+
+        public class BlogWithAuthors2
+        {
+
+            public Blog Blog { get; set; }
+            public Author Author { get; set; }
+
+            public Category Category { get; set; }
         }
     }
 }

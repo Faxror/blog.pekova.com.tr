@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -99,6 +100,19 @@ namespace DataAcceessLayer.Concrete
             return _context.Blogs.Include(b => b.Author).Include(x => x.Category).ToList();
         }
 
+        public Blog GetBlogWithAuthors(int id)
+        {
+            var blogWithAuthorAndCategory = _context.Blogs
+                .Where(b => b.BlogID == id) // Sadece belirli bir id'ye sahip blogu seç
+                .Include(b => b.Author) // Yazarı dahil et
+                .Include(b => b.Category) // Kategoriyi dahil et
+                .AsNoTracking() // Takip etmeyi devre dışı bırak
+                .FirstOrDefault(); // İlk öğeyi al veya varsayılan değeri döndür
+
+            return blogWithAuthorAndCategory; // Belirli bir id'ye sahip blog nesnesini döndür
+        }
+
+
         public List<Blog> List()
         {
            return _context.Blogs.ToList();
@@ -131,6 +145,18 @@ namespace DataAcceessLayer.Concrete
         public List<Blog> GetListWithCategoryByWriter(int id)
         {
             return _context.Blogs.Include(b => b.Category).Where(c => c.AuthorID == id).ToList();
+        }
+
+        public List<Blog> GetBlogByAuthors(int id)
+        {
+           return _context.Blogs.Where(x => x.AuthorID == id).ToList();
+        }
+
+       
+
+        public List<Blog> GesList(Expression<Func<Blog, bool>> filter)
+        {
+            return _context.Blogs.Where(filter).ToList();
         }
     }
 }
