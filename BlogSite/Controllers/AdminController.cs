@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstrack;
 using DataAcceessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSite.Controllers
@@ -9,12 +10,14 @@ namespace BlogSite.Controllers
         private readonly IBlogService blogService;
         private readonly Context _context;
         private readonly ICommentService _commentService;
+        private readonly IAuthorService authorService;
 
-        public AdminController(IBlogService blogService, Context context, ICommentService commentService)
+        public AdminController(IBlogService blogService, Context context, ICommentService commentService, IAuthorService authorService)
         {
             this.blogService = blogService;
             _context = context;
             _commentService = commentService;
+            this.authorService = authorService;
         }
 
         public IActionResult AdminBlogList()
@@ -27,6 +30,12 @@ namespace BlogSite.Controllers
         {
             var comment = _commentService.GetListByBlog(id);
             return View(comment);
+        }
+
+        public IActionResult AuthorList(Author p)
+        {
+            var authors = authorService.GetList();
+            return View(authors);
         }
 
     }

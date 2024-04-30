@@ -76,7 +76,8 @@ namespace BlogSite.Controllers
                  Phone = registerViewModels.Phone,
                  ShortAbout = registerViewModels.ShortAbout,
                  AuthorAbout = registerViewModels.About,
-                
+                 
+
                 };
                 context.Authors.Add(author);
                 context.SaveChanges();
@@ -90,7 +91,6 @@ namespace BlogSite.Controllers
                     ShortAbout = registerViewModels.ShortAbout,
                     Image = registerViewModels.Image,
                     AuthorID = author.AuthorID,
-                    CategoryID = 1,
                     ConfirimCode = code,
                 };
           

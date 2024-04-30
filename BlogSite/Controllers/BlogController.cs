@@ -184,7 +184,7 @@ namespace BlogSite.Controllers
         {
 
             blogService.AddBlog(p);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList", "Admin");
         }
 
         [HttpGet]
@@ -216,12 +216,12 @@ namespace BlogSite.Controllers
         {
 
             blogService.Update(p);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList", "Admin");
         }
         public IActionResult DeleteBlog(int id)
         {
             blogService.Delete(id);
-            return RedirectToAction("AdminBlogList");
+            return RedirectToAction("AdminBlogList", "Admin");
         }
 
 
