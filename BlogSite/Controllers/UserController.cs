@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogSite.Controllers
 {
-
+    [Authorize(Roles = "Yazar, Admin")]
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

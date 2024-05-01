@@ -10,7 +10,7 @@
     <title>Blog</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" type="image/x-icon" href="~/AdminLTE-3.0.4/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700|Playfair+Display:400,700,900" rel="stylesheet">
 
     <link rel="stylesheet" href="/miniblog/fonts/icomoon/style.css">
@@ -57,7 +57,7 @@
                                 <li><a href="/Blog/GetBlogCategory/6/">C</a></li>
                                 <li><a href="/Blog/GetBlogCategory/4/">HTML</a></li>
                                 <li><a href="/Blog/GetBlogCategory/3/">PYTHON</a></li>
-                                <li><a href="/Contact/SendMassage/">İletişim</a></li>
+                                 <li><a href="/Contact/SendMessage/">İletişim</a></li>
 
                             </ul>
                         </nav>
@@ -119,8 +119,12 @@
                                         <span>&nbsp;-&nbsp; @x.Blog.BlogTime.ToString("dd-MMM-yyy")</span>
                                     </div>
 
-                                    <p>@x.Blog.BlogContent.Substring(0, x.Blog.BlogContent.Substring(0, 200).LastIndexOf(" "))...</p>
-
+                                    @{
+                                        var blogContent = x.Blog.BlogContent.ToString();
+                                        var shortenedContent = blogContent.Substring(0, Math.Min(blogContent.Length, 200));
+                                        var truncatedContent = shortenedContent.Substring(0, shortenedContent.LastIndexOf(" ")) + "...";
+                                    }
+                                    <p>@Html.Raw(truncatedContent)</p>
                                     <p><a href="/Blog/BlogDetails/@x.Blog.BlogID">Devamını Oku</a></p>
                                 </div>
 
@@ -190,7 +194,6 @@
                         <ul class="list-unstyled float-left mr-5">
                             <li><a href="https://pekova.com.tr/">CV</a></li>
                             <li><a href="/Login/AuthorLogin">Yazar Giriş</a></li>
-                            <li><a href="/Login/AuthorLogin">Admin Giriş</a></li>
                         </ul>
                         <ul class="list-unstyled float-left">
                             <li><a href="/Blog/Index">Anasayfa</a></li>

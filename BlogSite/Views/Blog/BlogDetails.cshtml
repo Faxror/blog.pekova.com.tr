@@ -13,7 +13,7 @@
     <title>Blog</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" type="image/x-icon" href="~/AdminLTE-3.0.4/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700|Playfair+Display:400,700,900" rel="stylesheet">
 
     <link rel="stylesheet" href="~/miniblog/fonts/icomoon/style.css">
@@ -56,7 +56,7 @@
                                 <li><a href="/Blog/GetBlogCategory/6/">C</a></li>
                                 <li><a href="/Blog/GetBlogCategory/4/">HTML</a></li>
                                 <li><a href="/Blog/GetBlogCategory/3/">PYTHON</a></li>
-                                <li><a href="/Contact/SendMassage/">İletişim</a></li>
+                                <li><a href="/Contact/SendMessage/">İletişim</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -87,7 +87,7 @@
                 <div class="row blog-entries element-animate">
                     <div class="col-md-12 col-lg-8 main-content">
                         <div class="post-content-body">
-                            <p style="white-space: pre-line; color: black;">@Model.BlogContent</p>
+                            <p style="white-space: pre-line; color: black;">@Html.Raw(Model.BlogContent)</p>
                             <div class="row mb-5 mt-5">
                                 <div class="col-md-12 mb-4">
                                     <img src="@Model.BlogImage" alt="Image placeholder" class="img-fluid rounded">
@@ -146,6 +146,7 @@
 
 
     </div>
+
     <div class="site-footer">
         <div class="container">
             <div class="row mb-5">
@@ -155,7 +156,7 @@
                 </div>
                 <div class="col-md-3 ml-auto">
                     <ul class="list-unstyled float-left mr-5">
-                        <li><a href="/Default/Index">CV</a></li>
+                        <li><a href="https://pekova.com.tr/">CV</a></li>
                         <li><a href="/Login/AuthorLogin">Yazar Giriş</a></li>
                     </ul>
                     <ul class="list-unstyled float-left">
@@ -166,7 +167,7 @@
                 </div>
                 <div class="col-md-4">
                     <div>
-                        <h3 class="footer-heading mb-4">Bana Ulaşabileceğiniz Yerler</h3>
+                        <h3 class="footer-heading mb-4">Sosyal Medya</h3>
                         <p>
                             <a href="#"><span class="icon-twitter p-2"></span></a>
                             <a href="#"><span class="icon-instagram p-2"></span></a>
@@ -179,13 +180,15 @@
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> Tüm Hakları Saklıdır.
+                        <script>document.write(new Date().getFullYear());</script> Tüm Hakları Saklıdır. | Eriza
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
     </div>
     <script src="~/miniblog/js/jquery-3.3.1.min.js"></script>
     <script src="~/miniblog/js/jquery-migrate-3.0.1.min.js"></script>

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "GetBlogCategory";
     Layout = "~/Views/Shared/NewLayout.cshtml";
+
 }
 
 <div class="py-5 bg-light">
@@ -32,8 +33,12 @@
                                 <span class="d-inline-block mt-1"><a href="#">@item.Author.AuthorName</a></span>
                                 <span>&nbsp;-&nbsp; @(((DateTime)item.Blog.BlogTime).ToString("dd-MMM-yyyy"))</span>
                             </div>
-
-                            <p>@item.Blog.BlogContent.Substring(0, item.Blog.BlogContent.Substring(0, 200).LastIndexOf(" "))...</p>
+                            @{
+                                var blogContent = item.Blog.BlogContent.ToString();
+                                var shortenedContent = blogContent.Substring(0, Math.Min(blogContent.Length, 200));
+                                var truncatedContent = shortenedContent.Substring(0, shortenedContent.LastIndexOf(" ")) + "...";
+                            }
+                            <p>@Html.Raw(truncatedContent)</p>
                             <p><a href="/Blog/BlogDetails/@item.Blog.BlogID">Devamını oku</a></p>
                         </div>
                     </div>

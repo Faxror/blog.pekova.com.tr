@@ -13,6 +13,7 @@ using static DataAcceessLayer.Concrete.BlogRepository;
 
 namespace BlogSite.Controllers
 {
+    [AllowAnonymous]
     public class BlogController : Controller
     {
         private readonly IBlogService blogService;
@@ -157,74 +158,6 @@ namespace BlogSite.Controllers
         }
 
  
-       [HttpGet]
-       public IActionResult AddBlog()
-        {
-            CategoryManager categoryManager = new CategoryManager(new CategoryRepository(_context));
-            List<SelectListItem> values = (from x in categoryManager.GetList() select new SelectListItem 
-            { 
-             Text = x.CategoryName,
-             Value = x.CategoryID.ToString()
-            }).ToList();
-
-            AuthorManager AuthorManager = new AuthorManager(new AuthorRepository(_context));
-            List<SelectListItem> valuess = (from x in AuthorManager.GetList()
-                                           select new SelectListItem
-                                           {
-                                               Text = x.AuthorName,
-                                               Value = x.AuthorID.ToString()
-                                           }).ToList();
-            ViewBag.s = values;
-            ViewBag.a = valuess;
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddBlog(Blog p)
-        {
-
-            blogService.AddBlog(p);
-            return RedirectToAction("AdminBlogList", "Admin");
-        }
-
-        [HttpGet]
-        public IActionResult UpdateBlog(int id)
-        {
-            CategoryManager categoryManager = new CategoryManager(new CategoryRepository(_context));
-            List<SelectListItem> values = (from x in categoryManager.GetList()
-                                           select new SelectListItem
-                                           {
-                                               Text = x.CategoryName,
-                                               Value = x.CategoryID.ToString()
-                                           }).ToList();
-
-            AuthorManager AuthorManager = new AuthorManager(new AuthorRepository(_context));
-            List<SelectListItem> valuess = (from x in AuthorManager.GetList()
-                                            select new SelectListItem
-                                            {
-                                                Text = x.AuthorName,
-                                                Value = x.AuthorID.ToString()
-                                            }).ToList();
-            ViewBag.s2 = values;
-            ViewBag.a2 = valuess;
-            var value = blogService.GetBlogByİD(id);
-            return View(value);
-        }
-
-        [HttpPost]
-        public IActionResult UpdateBlog(Blog p)
-        {
-
-            blogService.Update(p);
-            return RedirectToAction("AdminBlogList", "Admin");
-        }
-        public IActionResult DeleteBlog(int id)
-        {
-            blogService.Delete(id);
-            return RedirectToAction("AdminBlogList", "Admin");
-        }
-
-
         [HttpGet]
         public PartialViewResult LeaveCommentt()
         {

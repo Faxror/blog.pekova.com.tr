@@ -28,7 +28,7 @@ namespace BlogSite.Controllers
             _signInManager = signInManager;
             this.context = context;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
@@ -43,7 +43,18 @@ namespace BlogSite.Controllers
                 var user = await _userManager.FindByNameAsync(loginViewModel.Username);
                 if (user.EmailConfirmed == true)
                 {
-                    return RedirectToAction("MyProfiles", "User");
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("AdminBlogList", "Admin");
+                    }
+                    else if (User.IsInRole("Yazar"))
+                    {
+                        return RedirectToAction("MyProfiles", "User");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Blog");
+                    }
                 }
                 else if (user.EmailConfirmed == false)
                 {
@@ -93,27 +104,46 @@ namespace BlogSite.Controllers
                     AuthorID = author.AuthorID,
                     ConfirimCode = code,
                 };
-          
+                
                 var result = await _userManager.CreateAsync(appUser, registerViewModels.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(appUser, "Member");
+
                     SmtpClient smtpClient = new SmtpClient("mt-prime-win.guzelhosting.com", 587);
-                    
-       
                     smtpClient.Credentials = new NetworkCredential("information@pekova.com.tr", "2e3Gd9j3*");
                     smtpClient.EnableSsl = true;
-                    string recipientEmail = $"{appUser.Email}";
-                    string emailTitle = "Yaz Blog Onay Kodu";
-                    string emailBody = $"Merhaba Kayıt İşlemini Bitirmek İçin   kodunuz {code}";
 
-                    MailMessage mail = new MailMessage( "information@pekova.com.tr", recipientEmail, emailTitle, emailBody);
+                    string recipientEmail = $"{appUser.Email}";
+
+                 
+                    string emailTitle = "Yaz Blog Onay Kodu";
+
+                
+                    string confirmationLink = $"{Url.Action("EmailConfirmed", "Account", new { email = appUser.Email, code = code }, protocol: HttpContext.Request.Scheme)}";
+
+                    string emailBody = $@"<p>Merhaba,</p>
+                          <p>Kayıt İşlemini Bitirmek İçin kodunuz: {code}.</p>
+                          <p>Lütfen onaylamak için aşağıdaki bağlantıya tıklayın:</p>
+                          <p><a href=""{confirmationLink}"">{confirmationLink}</a></p>";
+
+                    MailMessage mail = new MailMessage("information@pekova.com.tr", recipientEmail, emailTitle, emailBody);
+
+                    
+                    mail.IsBodyHtml = true;
 
                     await smtpClient.SendMailAsync(mail);
-                    TempData["Mail"] = registerViewModels.Email;
-                  
-                    return RedirectToAction("EmailConfirmed", "Account");
+
+           
+                    TempData["Mail"] = appUser.Email;
+
+               
+                    return RedirectToAction("Login", "Account");
                 }
-               else
+
+
+
+                else
                 {
                     foreach( var item in result.Errors)
                     {
@@ -131,29 +161,33 @@ namespace BlogSite.Controllers
                 return View();
          }
         [HttpPost]
-        public async Task<IActionResult> EmailConfirmed(ConfirmViewModel confirmViewModel)
+        public async Task<IActionResult> EmailConfirmed(string email, int code)
         {
-            var user = await _userManager.FindByEmailAsync(confirmViewModel.Mail);
-            if(user.ConfirimCode == confirmViewModel.ConfirmCode)
+            if (email == null || code == null)
             {
-                user.EmailConfirmed = true;
-                await _userManager.UpdateAsync(user);
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Error", "Home"); 
             }
-            
+
+            var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null)
             {
-               
                 ViewBag.Error = "E-posta adresiyle ilişkilendirilmiş kullanıcı bulunamadı.";
-                return View(confirmViewModel);
-            } 
-            else if (user.ConfirimCode != confirmViewModel.ConfirmCode)
+                return View(new ConfirmViewModel { Mail = email, ConfirmCode = code });
+            }
+
+            if (user.ConfirimCode != code)
             {
                 ViewBag.Error = "Doğrulama kodu hatalı.";
-                return View(confirmViewModel);
+                return View(new ConfirmViewModel { Mail = email, ConfirmCode = code });
             }
-            return View();
+
+      
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
+            return RedirectToAction("Login", "Account");
         }
+
 
         public async Task<IActionResult> logOut()
         {

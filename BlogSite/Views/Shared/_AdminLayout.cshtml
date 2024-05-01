@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
-
+    <link rel="icon" type="image/x-icon" href="~/AdminLTE-3.0.4/favicon.ico" />
     <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
 
     <!-- Ionicons -->
@@ -61,7 +61,7 @@
                      class="brand-image img-circle elevation-3"
                      style="opacity: .8">
 
-                <span class="brand-text font-weight-light">Blog Projects</span>
+                <span class="brand-text font-weight-light">Blog Yazar Paneli</span>
 
             </a>
 
@@ -73,17 +73,10 @@
 
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
-                    <div class="image">
 
-                        <img src="~/AdminLTE-3.0.4/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    @await Component.InvokeAsync("_UserPartial")
 
-                    </div>
 
-                    <div class="info">
-
-                        <a href="#" class="d-block">Alexander Pierce</a>
-
-                    </div>
 
                 </div>
 
@@ -292,16 +285,9 @@
 
         <footer class="main-footer">
 
-            <div class="float-right d-none d-sm-block">
 
-                <b>Version</b> 3.0.4
-
-            </div>
-
-            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-
-            reserved.
-
+             Copyright &copy;
+            <strong><script>document.write(new Date().getFullYear());</script> </strong> Tüm Hakları Saklıdır. | Eriza
         </footer>
 
         <!-- Control Sidebar -->

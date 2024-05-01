@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 
 namespace EntityLayer.Concrete
@@ -15,8 +16,7 @@ namespace EntityLayer.Concrete
 
         public string BlogImage { get; set; }
         public DateTime BlogTime { get; set; }
-
-
+        [AllowHtml]
         public string BlogContent { get; set; }
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }

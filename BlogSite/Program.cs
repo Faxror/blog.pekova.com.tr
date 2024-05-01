@@ -5,13 +5,19 @@ using DataAcceessLayer.Abstrack;
 using DataAcceessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddMvc();
+builder.Services.AddMvc(config =>
+{
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    config.Filters.Add(new AuthorizeFilter(policy));
+});
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<AuthorIdentityValidator>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IBlogService, BlogManager>();
@@ -23,11 +29,26 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentService, CommentManager>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddDbContext<Context>();
-builder.Services.AddSession(options =>
+
+
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.AccessDeniedPath = "/Admin/AccessDenied"; // Eriþim reddi durumunda yönlendirilecek sayfa
+        options.LoginPath = "/Account/Login"; // Kullanýcý giriþi gerektiren bir sayfaya eriþildiðinde yönlendirilecek sayfa
+    });
+
+
+builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum süresi 30 dakika
+    options.AccessDeniedPath = new PathString("/Admin/AccesDenied");
+    options.LoginPath = "/Account/Login";
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
 });
 var app = builder.Build();
 
@@ -44,11 +65,24 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseStatusCodePagesWithReExecute("/Error/Error1","?code={0}");
+app.UseExceptionHandler("/Error/500");
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Blog}/{action=Index}/{id?}");
+});
+
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+     pattern: "{controller=Blog}/{action=Index}/{id?}");
+
 
 app.Run();
